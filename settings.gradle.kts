@@ -12,13 +12,31 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+/// Common ///
 include("common")
+
+/// 1.20.1 ///
 include("1.20.1-common")
 include("1.20.1-forge")
 include("1.20.1-fabric")
+
+/// 1.21.1 ///
 include("1.21.1-common")
 include("1.21.1-neo")
 include("1.21.1-fabric")
+
+/// 26.1.2 ///
 include("26.1.2-common")
 include("26.1.2-fabric")
 include("26.1.2-neo")
+
+/// 26.2 ///
+include("26.2-common")
+include("26.2-fabric")
+include("26.2-neo")
+
+val ciBuildProjectNames = rootProject.children
+    .map { it.name }
+    .filterNot { it == "common" || it.endsWith("-common") }
+
+gradle.extensions.extraProperties["ciBuildProjectNames"] = ciBuildProjectNames
